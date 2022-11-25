@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<!-- 轮播图 -->
 		<view class="banner">
 			<swiper :indicator-dots="true" indicator-color="rgba(255,255,255, .5)" indicator-active-color="#ff372b"
 				:autoplay="true" :interval="3000" :duration="1000">
@@ -13,25 +14,173 @@
 				</swiper-item>
 			</swiper>
 		</view>
+		<!-- 主入口 -->
+		<view class="main-bar flex-box">
+			<view class="flex-item" v-for="(item,index) in contentBar" :key="index">
+				<image class="img" :src="`../../static/image/index/t_${index+1}.png`"></image>
+				<view>
+					{{item.name}}
+				</view>
+			</view>
+		</view>
+		<!-- 推荐歌单 -->
+		<view class="song-list">
+			<view class="tit-bar">
+				推荐歌单
+				<view class="more fr">
+					歌单广场
+				</view>
+			</view>
+			<scroll-view class="scroll-view" scroll-x>
+				<view class="item" v-for="(item,index) in recommendSongs" :key="index">
+					<image class="img" :src="item.picUrl"></image>
+					<view class="desc ellipsis">
+						{{item.name}}
+					</view>
+					<view class="count">
+						{{item.playCount}}
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<!-- 新碟新歌 -->
+		<view class="song-list">
+			<view class="switch-line flex-box">
+				<view class="flex-box">
+					<view class="switch-item" :class="{on: newType==1}" @click="switchtab(1)">
+						新碟
+					</view>
+					<view class="switch-item" :class="{on: newType==2}" @click="switchtab(2)">
+						新歌
+					</view>
+				</view>
+				<template v-if="newType==1">
+					<view class="more">
+						更多新碟
+					</view>
+				</template>
+				<template v-if="newType==2">
+					<view class="more">
+						更多新歌
+					</view>
+				</template>
+			</view>
+			<scroll-view class="scroll-view" scroll-x>
+				<view class="item" v-for="(item,index) in latestAlbum" :key="index">
+					<image class="img" :src="item.picUrl"></image>
+					<view class="desc ellipsis">
+						{{item.name}}
+					</view>
+					<view class="desc ellipsis c9">
+						{{item.artist.name}}
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<!-- 精选视频 -->
+		<view class="video-list song-list">
+			<view class="tit-bar">
+				精选视频
+				<view class="more fr">更多</view>
+			</view>
+			<view class="video-item" v-for="(item,index) in relateVideo" :key="index">
+				<image :src="item.coverUrl" class="img"></image>
+				<view class="desc ellipsis">{{item.title}}</view>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
-	import {reqGetBanner} from '@/apis/index.js'
+	import {
+		reqGetBanner,
+		reqGetRecommendSong,
+		reqGetTopAlbum,
+		reqGetRelateVideo
+	} from '@/apis/index.js'
 	export default {
 		data() {
 			return {
-				swiper: []
+				swiper: [],
+				contentBar: [{
+						name: '每日推荐'
+					},
+					{
+						name: '歌单'
+					},
+					{
+						name: '排行榜'
+					},
+					{
+						name: '电台'
+					},
+					{
+						name: '直播'
+					}
+				],
+				recommendSongs: [],
+				newType: 1,
+				latestAlbum: [],
+				latestTemAlbum: [],
+				relateVideo:[]
 			}
 		},
 		onLoad() {
 			this.getBanner();
+			this.getRecommendSong();
+			this.getLatestAlbum();
+			this.getRelateVideo();
 		},
 		methods: {
+			// 轮播图
 			getBanner() {
-			 reqGetBanner().then(res =>{
-				 this.swiper = res.banners
-			 })
+				reqGetBanner().then(res => {
+					this.swiper = res.banners
+				})
+			},
+			// 推荐歌单
+			getRecommendSong() {
+				reqGetRecommendSong().then(res => {
+					// 格式化播放数量
+					const formatCount = data => {
+						let tmp = data;
+						console.log(tmp)
+						if (data > 10000) {
+							tmp = (parseInt(data / 10000) + '万')
+						}
+						return tmp
+					}
+					this.recommendSongs = res.result
+					this.recommendSongs.forEach(item => {
+						item.playCount = formatCount(item.playCount)
+					})
+				})
+			},
+			//新碟新歌
+			getLatestAlbum() {
+				reqGetTopAlbum().then(res => {
+					this.latestTemAlbum = res.albums;
+					this.latestAlbum = res.albums.slice(0, Math.trunc(this.latestTemAlbum.length / 2))
+				})
+			},
+			//点击切换新碟新歌
+			switchtab(type) {
+				this.newType = type;
+				let temp = {
+					start: type == 1 ? 0 : Math.trunc(this.latestTemAlbum.length / 2),
+					end: type == 1 ? 6 : this.latestTemAlbum.length
+				}
+				this.latestAlbum = this.latestTemAlbum.slice(temp.start, temp.end)
+			},
+			//精选视频
+			getRelateVideo(){
+				let parms = {
+					id:12345
+				}
+				reqGetRelateVideo(parms).then(res=>{
+					console.log(res)
+					this.relateVideo = res.data
+				})
 			}
 		}
 	}
