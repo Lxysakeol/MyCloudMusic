@@ -24,12 +24,13 @@
 			</view>
 		</view>
 		<!-- 推荐歌单 -->
+		<!-- <songList title="推荐歌单" link="" :list="recommendSongs"/> -->
 		<view class="song-list">
 			<view class="tit-bar">
 				推荐歌单
-				<view class="more fr">
+				<navigator url="./" class="more fr">
 					歌单广场
-				</view>
+				</navigator>
 			</view>
 			<scroll-view class="scroll-view" scroll-x>
 				<view class="item" v-for="(item,index) in recommendSongs" :key="index">
@@ -122,7 +123,7 @@
 				newType: 1,
 				latestAlbum: [],
 				latestTemAlbum: [],
-				relateVideo:[]
+				relateVideo: []
 			}
 		},
 		onLoad() {
@@ -130,6 +131,10 @@
 			this.getRecommendSong();
 			this.getLatestAlbum();
 			this.getRelateVideo();
+		},
+		onPullDownRefresh() {
+			this.getRelateVideo();
+			uni.stopPullDownRefresh();
 		},
 		methods: {
 			// 轮播图
@@ -144,7 +149,6 @@
 					// 格式化播放数量
 					const formatCount = data => {
 						let tmp = data;
-						console.log(tmp)
 						if (data > 10000) {
 							tmp = (parseInt(data / 10000) + '万')
 						}
@@ -173,12 +177,12 @@
 				this.latestAlbum = this.latestTemAlbum.slice(temp.start, temp.end)
 			},
 			//精选视频
-			getRelateVideo(){
+			getRelateVideo() {
 				let parms = {
-					id:12345
+					id: 12345
 				}
-				reqGetRelateVideo(parms).then(res=>{
-					console.log(res)
+				reqGetRelateVideo(parms).then(res => {
+					console.log('11111', res)
 					this.relateVideo = res.data
 				})
 			}
