@@ -3,8 +3,17 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页",
+				"navigationBarTitleText": "uni-app",
 				"enablePullDownRefresh": true,
+				"app-plus":{
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/video/video",
+			"style": {
+				"navigationBarTitleText": "uni-app",
 				"app-plus": {
 					"titleNView": false
 				}
@@ -13,33 +22,23 @@
 		{
 			"path": "pages/mine/mine",
 			"style": {
-				"navigationBarTitleText": "我的",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": "uni-app"
 			}
-
-		}
-		, {
-			"path": "pages/account/account",
-			"style": {
-				"navigationBarTitleText": "账号",
-				"enablePullDownRefresh": false
-			}
-
 		}
 	    ,{
-            "path" : "pages/cloud/cloud",
+            "path" : "pages/account/account",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "云村",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
         }
         ,{
-            "path" : "pages/video/video",
+            "path" : "pages/cloud/cloud",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "视频",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
@@ -51,41 +50,41 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {},
 	"tabBar": {
-		"color": "#888",
-		"selectedColor": "#ff2419",
-		"borderStyle": "white",
-		"backgroundColor": "#f9f9f9",
-		"list": [{
-				"pagePath": "pages/index/index",
-				"iconPath": "static/tab/t_1.png",
-				"selectedIconPath": "static/tab/t_11.png",
-				"text": "首页"
+		"color":"#888",
+		"selectedColor":"#ff2419",
+		"borderStyle":"white",
+		"backgroundColor":"#f9f9f9",
+		"list": [
+			{
+				"pagePath":"pages/index/index",
+				"iconPath":"static/tab/t_1.png",
+				"selectedIconPath":"static/tab/t_11.png",
+				"text":"首页"
 			},
 			{
-				"pagePath": "pages/video/video",
-				"iconPath": "static/tab/t_2.png",
-				"selectedIconPath": "static/tab/t_21.png",
-				"text": "视频"
+				"pagePath":"pages/video/video",
+				"iconPath":"static/tab/t_2.png",
+				"selectedIconPath":"static/tab/t_21.png",
+				"text":"视频"
 			},
 			{
-				"pagePath": "pages/mine/mine",
-				"iconPath": "static/tab/t_1.png",
-				"selectedIconPath": "static/tab/t_11.png",
-				"text": "我的"
+				"pagePath":"pages/mine/mine",
+				"iconPath":"static/tab/t_3.png",
+				"selectedIconPath":"static/tab/t_31.png",
+				"text":"我的"
 			},
 			{
-				"pagePath": "pages/cloud/cloud",
-				"iconPath": "static/tab/t_4.png",
-				"selectedIconPath": "static/tab/t_41.png",
-				"text": "云村"
+				"pagePath":"pages/cloud/cloud",
+				"iconPath":"static/tab/t_4.png",
+				"selectedIconPath":"static/tab/t_41.png",
+				"text":"云村"
 			},
 			{
-				"pagePath": "pages/account/account",
-				"iconPath": "static/tab/t_5.png",
-				"selectedIconPath": "static/tab/t_51.png",
-				"text": "账号"
+				"pagePath":"pages/account/account",
+				"iconPath":"static/tab/t_5.png",
+				"selectedIconPath":"static/tab/t_51.png",
+				"text":"账号"
 			}
 		]
 	}

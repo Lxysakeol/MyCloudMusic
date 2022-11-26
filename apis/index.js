@@ -12,14 +12,20 @@ export const reqGetRecommendSong = (data) => request.request({
 	data
 })
 //新碟新歌
-export const reqGetTopAlbum = (data)=>request.request({
-	url:'/album/newest',
-	method:'get',
+export const reqGetTopAlbum = (data) => request.request({
+	url: '/album/newest',
+	method: 'get',
 	data
 })
 //精选视频
-export const reqGetRelateVideo = (data)=>request.request({
-	url:'/related/allvideo',
-	method:'get',
+export const reqGetRelateVideo = (data) => request.request({
+	url: '/related/allvideo',
+	method: 'get',
+	data
+})
+
+export const reqGetNavList = (data) => request.request({
+	url: '/video/timeline/all',
+	method: 'get',
 	data
 })

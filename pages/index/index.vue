@@ -178,10 +178,10 @@
 			},
 			//精选视频
 			getRelateVideo() {
-				let parms = {
+				let params = {
 					id: 12345
 				}
-				reqGetRelateVideo(parms).then(res => {
+				reqGetRelateVideo(params).then(res => {
 					console.log('11111', res)
 					this.relateVideo = res.data
 				})
