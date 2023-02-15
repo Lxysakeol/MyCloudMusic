@@ -1,94 +1,95 @@
 <template>
 	<view>
-		<!-- 轮播图 -->
-		<view class="banner">
-			<swiper :indicator-dots="true" indicator-color="rgba(255,255,255, .5)" indicator-active-color="#ff372b"
-				:autoplay="true" :interval="3000" :duration="1000">
-				<swiper-item v-for="(item,index) in swiper" :key="index">
-					<view class="item">
-						<image :src="item.imageUrl" class="img"></image>
-						<view class="tag">
-							{{item.typeTitle}}
+		<view :class="{dpn:isShowSearch}">
+			<!-- 导航栏 -->
+			<uni-nav-bar fixed="true">
+				<block slot="left">
+					<image src="../../static/image/search/6.png" mode="widthFix" class="top-img"></image>
+				</block>
+				<view class="top-search flex-box" @click="openSearch">
+					<image src="../../static/image/search/2.png" mode="widthFix" class="search-icon"></image>
+					周杰伦
+				</view>
+				<block slot="right">
+					<image src="../../static/image/mine/r.png" mode="widthFix" class="top-img"></image>
+				</block>
+			</uni-nav-bar>
+			<view class="page-content">
+				<mescroll-uni :down="downOption" :up="upOption" @down="downcallback" @up="upcallBack">
+					<!-- 轮播图 -->
+					<view class="banner">
+						<swiper :indicator-dots="true" indicator-color="rgba(255,255,255, .5)"
+							indicator-active-color="#ff372b" :autoplay="true" :interval="3000" :duration="1000">
+							<swiper-item v-for="(item,index) in swiper" :key="index">
+								<view class="item">
+									<image :src="item.imageUrl" class="img"></image>
+									<view class="tag">
+										{{item.typeTitle}}
+									</view>
+								</view>
+							</swiper-item>
+						</swiper>
+					</view>
+					<!-- 主入口 -->
+					<view class="main-bar flex-box">
+						<view class="flex-item" v-for="(item,index) in contentBar" :key="index">
+							<image class="img" :src="`../../static/image/index/t_${index+1}.png`"></image>
+							<view>
+								{{item.name}}
+							</view>
 						</view>
 					</view>
-				</swiper-item>
-			</swiper>
-		</view>
-		<!-- 主入口 -->
-		<view class="main-bar flex-box">
-			<view class="flex-item" v-for="(item,index) in contentBar" :key="index">
-				<image class="img" :src="`../../static/image/index/t_${index+1}.png`"></image>
-				<view>
-					{{item.name}}
-				</view>
+					<!-- 推荐歌单 -->
+					<songList title="推荐歌单" link="" :list="recommendSongs" />
+					<!-- 新碟新歌 -->
+					<view class="song-list">
+						<view class="switch-line flex-box">
+							<view class="flex-box">
+								<view class="switch-item" :class="{on: newType==1}" @click="switchtab(1)">
+									新碟
+								</view>
+								<view class="switch-item" :class="{on: newType==2}" @click="switchtab(2)">
+									新歌
+								</view>
+							</view>
+							<template v-if="newType==1">
+								<view class="more">
+									更多新碟
+								</view>
+							</template>
+							<template v-if="newType==2">
+								<view class="more">
+									更多新歌
+								</view>
+							</template>
+						</view>
+						<scroll-view class="scroll-view" scroll-x>
+							<view class="item" v-for="(item,index) in latestAlbum" :key="index">
+								<image class="img" :src="item.picUrl"></image>
+								<view class="desc ellipsis">
+									{{item.name}}
+								</view>
+								<view class="desc ellipsis c9">
+									{{item.artist.name}}
+								</view>
+							</view>
+						</scroll-view>
+					</view>
+					<!-- 精选视频 -->
+					<view class="video-list song-list">
+						<view class="tit-bar">
+							精选视频
+							<view class="more fr">更多</view>
+						</view>
+						<view class="video-item" v-for="(item,index) in relateVideo" :key="index">
+							<image :src="item.coverUrl" class="img"></image>
+							<view class="desc ellipsis">{{item.title}}</view>
+						</view>
+					</view>
+				</mescroll-uni>
 			</view>
 		</view>
-		<!-- 推荐歌单 -->
-		<!-- <songList title="推荐歌单" link="" :list="recommendSongs"/> -->
-		<view class="song-list">
-			<view class="tit-bar">
-				推荐歌单
-				<navigator url="./" class="more fr">
-					歌单广场
-				</navigator>
-			</view>
-			<scroll-view class="scroll-view" scroll-x>
-				<view class="item" v-for="(item,index) in recommendSongs" :key="index">
-					<image class="img" :src="item.picUrl"></image>
-					<view class="desc ellipsis">
-						{{item.name}}
-					</view>
-					<view class="count">
-						{{item.playCount}}
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<!-- 新碟新歌 -->
-		<view class="song-list">
-			<view class="switch-line flex-box">
-				<view class="flex-box">
-					<view class="switch-item" :class="{on: newType==1}" @click="switchtab(1)">
-						新碟
-					</view>
-					<view class="switch-item" :class="{on: newType==2}" @click="switchtab(2)">
-						新歌
-					</view>
-				</view>
-				<template v-if="newType==1">
-					<view class="more">
-						更多新碟
-					</view>
-				</template>
-				<template v-if="newType==2">
-					<view class="more">
-						更多新歌
-					</view>
-				</template>
-			</view>
-			<scroll-view class="scroll-view" scroll-x>
-				<view class="item" v-for="(item,index) in latestAlbum" :key="index">
-					<image class="img" :src="item.picUrl"></image>
-					<view class="desc ellipsis">
-						{{item.name}}
-					</view>
-					<view class="desc ellipsis c9">
-						{{item.artist.name}}
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<!-- 精选视频 -->
-		<view class="video-list song-list">
-			<view class="tit-bar">
-				精选视频
-				<view class="more fr">更多</view>
-			</view>
-			<view class="video-item" v-for="(item,index) in relateVideo" :key="index">
-				<image :src="item.coverUrl" class="img"></image>
-				<view class="desc ellipsis">{{item.title}}</view>
-			</view>
-		</view>
+		<search ref="search" @close="closeSearch"></search>
 	</view>
 </template>
 
@@ -98,8 +99,12 @@
 		reqGetRecommendSong,
 		reqGetTopAlbum,
 		reqGetRelateVideo
-	} from '@/apis/index.js'
+	} from '@/apis/index.js';
+	import uniNavBar from "@/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar.vue";
 	export default {
+		components: {
+			uniNavBar
+		},
 		data() {
 			return {
 				swiper: [],
@@ -123,18 +128,24 @@
 				newType: 1,
 				latestAlbum: [],
 				latestTemAlbum: [],
-				relateVideo: []
+				relateVideo: [],
+				isShowSearch: false,
+				downOption: {
+					auto: false
+				},
+				upOption: {
+					auto: false,
+				}
 			}
 		},
 		onLoad() {
 			this.getBanner();
 			this.getRecommendSong();
 			this.getLatestAlbum();
-			this.getRelateVideo();
-		},
-		onPullDownRefresh() {
-			this.getRelateVideo();
-			uni.stopPullDownRefresh();
+			// this.getRelateVideo();
+			this.getList(1, 5, res => {
+				this.relateVideo = res
+			})
 		},
 		methods: {
 			// 轮播图
@@ -176,16 +187,52 @@
 				}
 				this.latestAlbum = this.latestTemAlbum.slice(temp.start, temp.end)
 			},
-			//精选视频
-			getRelateVideo() {
-				let params = {
-					id: 12345
+			//视频列表
+			getList(pageNum, pageSize, successCallback, errCallback) {
+				const params = {
+					id: 12345,
+					pageNum,
+					pageSize
 				}
 				reqGetRelateVideo(params).then(res => {
-					console.log('11111', res)
-					this.relateVideo = res.data
+					if (successCallback) {
+						successCallback(res.data)
+					}
+				}, err => {
+					if (errCallback) {
+						errCallback(err)
+					}
 				})
-			}
+			},
+			//打开搜索页
+			openSearch(){
+				// 隐藏首页
+				this.isShowSearch = true;
+				// 打开搜索页
+				this.$refs.search.open();
+				
+			},
+			// 关闭搜索页
+			closeSearch(){
+				this.isShowSearch = false;
+			},
+			downcallback(mescroll) {
+				//重置列表为第一页
+				mescroll.resetUpScroll();
+			},
+			upcallBack(mescroll) {
+				this.getList(mescroll.num, mescroll.size, res => {
+					if (mescroll.num == 1) {
+						// 第一页就先清楚数据
+						this.relateVideo = [];
+					}
+					//累加数据
+					this.relateVideo = this.relateVideo.concat(res)
+					mescroll.endSuccess()
+				}, () => {
+					mescroll.endErr();
+				})
+			},
 		}
 	}
 </script>
@@ -196,44 +243,85 @@
 		font-size: 24rpx;
 	}
 
-	.banner {
-		width: 100%;
-		height: 285rpx;
-		margin: 30rpx auto 44rpx;
+	.dpn {
+		display: none;
+	}
 
-		.swiper {
-			height: 268rpx;
-		}
+	.top-img {
+		width: 50rpx;
+		height: 50rpx;
+		margin-top: 10rpx;
+	}
 
-		.item {
-			position: relative;
-			display: block;
-			width: 686rpx;
-			height: 285rpx;
-			margin: 0 auto;
-			border-radius: 14rpx;
-			overflow: hidden;
-		}
+	.top-search {
+		width: 460rpx;
+		/* #ifdef MP-WEIXIN */
+		width: 460rpx;
+		margin-left: -60rpx;
+		/* #endif */
+		height: 72rpx;
+		margin-right: 24rpx;
+		border-radius: 72rpx;
+		color: #c6c6c6;
+		background: #f7f7f7;
+		align-items: center;
+		justify-content: center;
 
-		.img {
-			display: block;
-			width: 100%;
-			height: 100%;
-		}
-
-		.tag {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			height: 34rpx;
-			padding: 0 14rpx;
-			line-height: 34rpx;
-			color: #fff;
-			background: #43a5f0;
-			z-index: 10;
-			border-top-left-radius: 14rpx;
+		.search-icon {
+			width: 28rpx;
+			height: 29rpx;
+			margin-right: 12rpx;
 		}
 	}
+
+	.page-content {
+		position: fixed;
+		top: 64px;
+		left: 0;
+		right: 0;
+		bottom: 0px;
+		/* #ifdef H5 || MP-WEIXIN */
+		top: 44px;
+
+		/* #endif */
+		.banner {
+			width: 100%;
+			height: 268rpx;
+			margin: 100rpx auto 44rpx;
+
+			.item {
+				position: relative;
+				display: block;
+				width: 686rpx;
+				height: 285rpx;
+				margin: 0 auto;
+				border-radius: 14rpx;
+				overflow: hidden;
+			}
+
+			.img {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			.tag {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				height: 34rpx;
+				padding: 0 14rpx;
+				line-height: 34rpx;
+				color: #fff;
+				background: #43a5f0;
+				z-index: 10;
+				border-top-left-radius: 14rpx;
+			}
+		}
+
+	}
+
+
 
 	.main-bar {
 		padding-bottom: 22rpx;
@@ -254,15 +342,14 @@
 
 			.date {
 				position: absolute;
-				left: 60rpx;
+				left: 50%;
 				top: 40rpx;
 				line-height: 1;
 				font-size: 24rpx;
 				color: #ff392d;
-				transform: scale(0.8);
+				transform: translateX(-50%) scale(0.8);
 			}
 		}
-
 	}
 
 	.song-list {
@@ -329,14 +416,14 @@
 			line-height: 34rpx;
 
 			&:before {
-				content: " ";
+				content: ' ';
 				position: absolute;
 				left: 0;
 				top: 0;
 				width: 100%;
 				height: 40rpx;
 				z-index: 2;
-				background-image: linear-gradient(180deg, rgba(0, 0, 0, .2), transparent);
+				background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2), transparent);
 			}
 
 			&.video {
@@ -401,8 +488,8 @@
 	}
 
 	/*
-		 *平台差异化处理的代码可以放在底部，这样有利于集中管理
-		*/
+	 *平台差异化处理的代码可以放在底部，这样有利于集中管理
+	*/
 	/* #ifdef MP-WEIXIN */
 	.banner {
 		margin-top: 60rpx;
