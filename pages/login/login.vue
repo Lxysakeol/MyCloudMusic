@@ -16,7 +16,6 @@
 	import {
 		reqLogin
 	} from '@/apis/index.js'
-	// import{ mapState,mapMutations} from 'vuex'
 	export default {
 		data() {
 			return {
