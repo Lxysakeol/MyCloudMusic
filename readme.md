@@ -23,15 +23,9 @@
 8.下拉刷新
 需要在pages.json中配置enablePullDownRefresh
 [下拉刷新](https://uniapp.dcloud.io/api/ui/pulldown?id=onpulldownrefresh)
-页面生命周期：
-onPullDownRefresh() {
-        console.log('refresh');
-        setTimeout(function () {
-            uni.stopPullDownRefresh();
-        }, 1000);
-	    //加载下一页数据
-    }
-    
+
+![1](https://user-images.githubusercontent.com/113192717/229362807-1b57d476-5970-41fa-bb53-402e9e5c3d36.png)
+
 # 视频页
 1.导航条实现
 使用scroll-view组件实现
@@ -47,13 +41,16 @@ onPullDownRefresh() {
 有个问题？是一个分页，向上滚动到要能加载下一页，向下滚动要能刷新当前页
 推荐外部控件mescroll-uni
 
+![2](https://user-images.githubusercontent.com/113192717/229362832-fcd6e217-5332-410e-95df-14f24a5327fb.png)
 
-#我的页
+# 我的页
 1.导航条
 2.菜单列表  使用三方插件uni-list
 3.推荐歌单
 
-#云村页
+![3](https://user-images.githubusercontent.com/113192717/229362846-d9e0c3c7-308e-4217-b6bb-926784abe176.png)
+
+# 云村页
 1.导航栏 三方插件uni-nav-bar
 1.1 兼容性
 uniapp---兼容多个平台
@@ -64,8 +61,10 @@ uniapp---兼容多个平台
 3.滚动列表包括：
   上下轮播
   二列视频列表(奇偶)
+  
+![4](https://user-images.githubusercontent.com/113192717/229362858-b15c0bc0-c9c1-41b3-bcf2-bdc318a06c4f.png)
 
-#账号页
+# 账号页
 1.导航栏
 
 2.滚动列表
@@ -75,7 +74,9 @@ scroll-view
 3.vuex状态控制
 把store挂载到vue实例上
 
-#登录页
+![5](https://user-images.githubusercontent.com/113192717/229362882-0cfd2f93-af59-4cfc-b272-8bc5832f0be2.png)
+
+# 登录页
 1.通过登录接口登录。
 2.登录成功后，保存用户信息到vuex，便于账号页显示用户信息。
 3.刷新后 用户信息丢失？
@@ -86,13 +87,16 @@ scroll-view
 
 
 
-#开屏页
+# 开屏页
 1.app首次打开时显示
 2.app后台运行超过一定时间，再切换时也显示
 3.首选显示的是LOGO页,维持2秒
 4.再显示广告页，维持7秒, 之后跳转首页(也可以跳过)
 
-#搜索页
+![7](https://user-images.githubusercontent.com/113192717/229362908-7eb00c5e-7264-46a4-ad2d-79aa74206cee.png)
+![6](https://user-images.githubusercontent.com/113192717/229362912-7785edc7-96a3-40c5-8c69-9d99dd0ffc35.png)
+
+# 搜索页
 1.首页重构
 增加导航栏，滚动组件mescroll-uni，相应的加载数据的方法
 增加搜索页
@@ -111,9 +115,13 @@ scroll-view
   搜索结果展示
   搜索历史
   
+![8](https://user-images.githubusercontent.com/113192717/229362936-753240dd-5598-463c-b1b1-d6d8bdb3c499.png
+
 # 音乐页面
 1. 从歌单中 点击 打开音乐页面
 2. 音乐页面获取接口数据
+
+![9](https://user-images.githubusercontent.com/113192717/229362957-7bf7a57e-2926-4ef2-bba8-532e8c149efc.png)
 
 # 播放页面
 1. 从音乐列表中  点击  跳转到播放页面
@@ -128,6 +136,8 @@ scroll-view
 5. 标题滚动，添加一个动画，并且判断标题的长度
    如果标题长度大于110则为滚动标题，小于110则为静态标题
    
+![10](https://user-images.githubusercontent.com/113192717/229362970-6bc5ff16-0847-4c7a-b404-b8643b8e181e.png)
+
   
 # 打包
 1.下载hbuildx并注册账号
