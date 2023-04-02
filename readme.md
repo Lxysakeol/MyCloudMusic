@@ -131,7 +131,7 @@ scroll-view
   搜索结果展示
   搜索历史
   
-![8](https://user-images.githubusercontent.com/113192717/229362936-753240dd-5598-463c-b1b1-d6d8bdb3c499.png
+![8](https://user-images.githubusercontent.com/113192717/229363307-03f06071-3773-4e45-84c0-8c288d12863d.png)
 
 # 音乐页面
 1. 从歌单中 点击 打开音乐页面
