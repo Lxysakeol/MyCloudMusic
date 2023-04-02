@@ -5,16 +5,21 @@
 
 
 # 发现页
-1.请求组件promise封装
-2.请求组件的使用
-3.主入口模块的实现
+-1.请求组件promise封装
 
-4.推荐歌单模块
-5.新碟新歌模块
-6.精选视频模块
+-2.请求组件的使用
 
-7.songList组件封装
+-3.主入口模块的实现
+
+-4.推荐歌单模块
+
+-5.新碟新歌模块
+
+-6.精选视频模块
+
+-7.songList组件封装
 减少代码冗余
+
 8.下拉刷新
 需要在pages.json中配置enablePullDownRefresh
 [下拉刷新](https://uniapp.dcloud.io/api/ui/pulldown?id=onpulldownrefresh)
@@ -26,6 +31,7 @@ onPullDownRefresh() {
         }, 1000);
 	    //加载下一页数据
     }
+    
 # 视频页
 1.导航条实现
 使用scroll-view组件实现
